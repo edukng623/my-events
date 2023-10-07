@@ -52,9 +52,11 @@ const getEvents = async (req, res) => {
         // Getting the numbers of products stored in database
         const count = await Event.countDocuments(filter);
         console.log("Events found: " + eventsFound);
-        res.render("events", {events: eventsFound});
+        // res.render("events", {events: eventsFound});
+        res.json({events: eventsFound, total: count});
     }catch (err){
-        res.render('error', {message: "Error searching Events", error: {status: 500, stack: err}})
+        res.json({events: []})
+        // res.render('error', {message: "Error searching Events", error: {status: 500, stack: err}})
     }  
     
 }
