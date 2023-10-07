@@ -1,6 +1,7 @@
-{{#each events}}
-<h1>{{this.name}}</h1> 
-<p>Details: {{this.description}}</p> 
-{{/each}}
-
-<!-- TODO: Use Handlebars Partials -->
+<ol>
+    {{#each events}}
+    <li>
+        <h1>{{this.name}} <b>{{this.description}}</b></h1>
+    </li>
+    {{/each}}
+</ol>

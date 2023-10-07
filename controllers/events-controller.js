@@ -27,12 +27,12 @@ const getEvents = async (req, res) => {
     // let limit = req.query.limit;
     // We destructure the req.query object to get the page and limit variables from url 
     
-    const { page = 1, limit = 10, name, description, sortBy = "name", sortOrder= DEFAULT_SORT_ORDER} = req.query;
+    const { page = 1, limit = 10,   sortBy = "name", sortOrder= DEFAULT_SORT_ORDER} = req.query;
     const filter = {};
-    if (name) {
-        // If 'name' query parameter is provided, add it to the filter
-        filter.name = name;
-    }
+    // if (sortBy) {
+    //     // If 'name' query parameter is provided, add it to the filter
+    //     filter.sortBy = sortBy;
+    // }
 
     let sortData = {};
 
@@ -51,7 +51,7 @@ const getEvents = async (req, res) => {
 
         // Getting the numbers of products stored in database
         const count = await Event.countDocuments(filter);
-
+        console.log("Events found: " + eventsFound);
         res.render("events", {events: eventsFound});
     }catch (err){
         res.render('error', {message: "Error searching Events", error: {status: 500, stack: err}})
