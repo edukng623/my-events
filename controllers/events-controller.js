@@ -18,7 +18,7 @@ const testEvent2 = {
     dueDate: Date.now(),
     attendees: ["w-mechanic"]
 }
-
+ 
 const DEFAULT_SORT_ORDER = -1;
 const getEvents = async (req, res) => {
     let events = [testEvent, testEvent2];
@@ -26,13 +26,13 @@ const getEvents = async (req, res) => {
     // let page = req.query.page;
     // let limit = req.query.limit;
     // We destructure the req.query object to get the page and limit variables from url 
-    
-    const { page = 1, limit = 10,   sortBy = "name", sortOrder= DEFAULT_SORT_ORDER} = req.query;
+    // Status: ALL, DRAFT, CREATED, COMPLETED
+    const { page = 1, limit = 10,   sortBy = "name", sortOrder= DEFAULT_SORT_ORDER, status = "ALL"} = req.query;
     const filter = {};
-    // if (sortBy) {
-    //     // If 'name' query parameter is provided, add it to the filter
-    //     filter.sortBy = sortBy;
-    // }
+    if (status && status != "ALL") {
+        // If 'name' query parameter is provided, add it to the filter
+        filter.status = status;
+    }
 
     let sortData = {};
 
@@ -53,6 +53,7 @@ const getEvents = async (req, res) => {
         const count = await Event.countDocuments(filter);
         console.log("Events found: " + eventsFound);
         // res.render("events", {events: eventsFound});
+        
         res.json({events: eventsFound, total: count});
     }catch (err){
         res.json({events: []})

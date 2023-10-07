@@ -12,7 +12,11 @@ var usersRouter = require('./routes/users');
 var eventsRouter = require('./routes/events')
 
 var app = express();
-
+// Middleware to set cache control headers for all responses
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, max-age=0'); // Disable caching
+  next();
+});
 // // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
