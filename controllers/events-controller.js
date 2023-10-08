@@ -53,6 +53,7 @@ const createEvent = (req, res) => {
     //  1. User validation
     //  2. Others
     console.log(res);
+    req.body.attendees = [req.body.createdBy, "6521ff2f8e91ed4080255e5e", "6521ff438e91ed4080255e60"];
     try{
         Event.create(req.body) 
         .then ( createdEvent => {
