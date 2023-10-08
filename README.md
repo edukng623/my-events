@@ -9,7 +9,7 @@ Running the Node Server
 ```
 > cd my-events
 > npm install
-> set DEBUG=myapp:* & npm start
+> set DEBUG=my-events:* & npm start
 ```
 ### Linux
 ```
@@ -31,5 +31,5 @@ $ DEBUG=my-events:* npm start
 ### **Tech Stack**
 
 - Frontend: Next.js/React
-- Backend: Node.js, Express or Next.js API routes
-- Database: Any DB of choice or ORM
+- Backend: Node.js, Express
+- Database: MongoDB

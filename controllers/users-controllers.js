@@ -1,8 +1,27 @@
 
 const User = require("../model/user");  
  
-const getUsers = (req, res) => { 
-    res.render("users", {users: []});
+const getUsers = async (req, res) => {  
+
+    // let page = req.query.page;
+    // let limit = req.query.limit;
+    // We destructure the req.query object to get the page and limit variables from url 
+    // Status: ALL, DRAFT, CREATED, COMPLETED
+    const { page = 1, limit = 10 } = req.query; 
+
+    try {
+        const usersFound = await User.find({}) 
+        .limit(limit * 1) 
+        .skip((page - 1) * limit);
+        
+        const count = await User.countDocuments({});
+        console.log("Users found: " + usersFound); 
+        res.render("users", {users: usersFound, total: count});
+    }catch (err){
+        console.log(err);
+        res.render('error', {message: "Could not get users", error: {status: 500, stack: err}})
+    }  
+    
 }
 const getUserById = (req, res) => {
     let user = {};
